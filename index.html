@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulse · 商业计划书 2026</title>
+<meta name="description" content="Pulse 把「今天吃什么」变成 30 秒内可执行、可核对、可信任的决定。">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Pulse · 商业计划书 2026">
+<meta property="og:description" content="把「今天吃什么」变成 30 秒的决定。AI 健康决策系统，中餐 / 外卖 / 家庭场景。">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23C9F86C'/%3E%3Ctext x='16' y='23' font-size='19' font-family='Helvetica,Arial' font-weight='bold' text-anchor='middle' fill='%230B0D08'%3EP%3C/text%3E%3C/svg%3E">
+<style>
+/* ============ tokens ============ */
+:root{
+  --bg:#07080A;
+  --bg-soft:#0B0C0F;
+  --surface:#101114;
+  --surface-2:#15161A;
+  --line:rgba(255,255,255,.085);
+  --line-strong:rgba(255,255,255,.18);
+  --text:#F3F4F6;
+  --muted:#9A9DA6;
+  --muted-2:#7F838C;
+  --accent:#C9F86C;
+  --accent-ink:#0B0D08;
+  --accent-soft:rgba(201,248,108,.12);
+  --track:rgba(255,255,255,.07);
+  --violet:#8B7CFF;
+  --coral:#FF8F6B;
+  --radius:18px;
+  --maxw:1240px;
+  --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,monospace;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --shadow:0 30px 60px -20px rgba(0,0,0,.7);
+}
+[data-theme="light"]{
+  --bg:#F5F4EF;
+  --bg-soft:#EFEEE8;
+  --surface:#FFFFFF;
+  --surface-2:#FAF9F4;
+  --line:rgba(15,17,12,.10);
+  --line-strong:rgba(15,17,12,.22);
+  --text:#12140F;
+  --muted:#5D6156;
+  --muted-2:#6B7062;
+  --accent:#4E7A0B;
+  --accent-ink:#FFFFFF;
+  --accent-soft:rgba(78,122,11,.12);
+  --track:rgba(15,17,12,.09);
+  --violet:#5B4BD6;
+  --coral:#C4532E;
+  --shadow:0 24px 50px -24px rgba(20,24,10,.25);
+}
+
+/* ============ base ============ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  transition:background .5s ease,color .5s ease;
+}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);padding:10px 16px;z-index:200;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.grain{
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+[data-theme="light"] .grain{opacity:.03;mix-blend-mode:multiply}
+
+/* ============ chrome ============ */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:120;background:transparent}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--violet));transition:width .1s linear}
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:110;height:64px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:0 clamp(16px,4vw,40px);
+  background:color-mix(in srgb,var(--bg) 72%,transparent);
+  backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em}
+.brand .mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(140deg,var(--accent),#7FD3A8);color:#0B0D08;display:grid;place-items:center;font-size:14px;font-weight:800}
+.top-meta{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:12.5px;letter-spacing:.06em}
+.top-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--muted-2)}
+.tools{display:flex;align-items:center;gap:8px}
+.icon-btn{
+  appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--text);
+  width:36px;height:36px;border-radius:10px;display:grid;place-items:center;cursor:pointer;
+  transition:border-color .25s,transform .25s,background .25s;
+}
+.icon-btn:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+.icon-btn svg{width:16px;height:16px}
+.print-btn{width:auto;padding:0 14px;font-size:12.5px;letter-spacing:.04em;gap:8px;display:inline-flex}
+
+/* ============ hero ============ */
+.hero{position:relative;padding:calc(64px + clamp(48px,8vh,88px)) clamp(16px,4vw,40px) clamp(48px,7vh,80px);overflow:hidden}
+.aurora{position:absolute;inset:-20% -10% auto;height:800px;z-index:0;pointer-events:none;filter:blur(90px);opacity:.55}
+.aurora i{position:absolute;display:block;border-radius:50%;mix-blend-mode:screen}
+[data-theme="light"] .aurora{opacity:.32;mix-blend-mode:multiply}
+[data-theme="light"] .hero h1 em{background-image:linear-gradient(100deg,#3F6B00 0%,#0C6B4C 52%,#3A2FA8 100%)}
+.aurora .a1{width:520px;height:520px;left:8%;top:0;background:radial-gradient(circle at 30% 30%,rgba(201,248,108,.55),transparent 62%);animation:float1 20s ease-in-out infinite alternate}
+.aurora .a2{width:600px;height:600px;right:2%;top:-80px;background:radial-gradient(circle at 60% 40%,rgba(139,124,255,.4),transparent 65%);animation:float2 26s ease-in-out infinite alternate}
+.aurora .a3{width:420px;height:420px;left:38%;top:220px;background:radial-gradient(circle at 50% 50%,rgba(255,143,107,.22),transparent 60%);animation:float3 18s ease-in-out infinite alternate}
+@keyframes float1{to{transform:translate3d(60px,40px,0) scale(1.08)}}
+@keyframes float2{to{transform:translate3d(-50px,30px,0) scale(1.05)}}
+@keyframes float3{to{transform:translate3d(30px,-40px,0) scale(1.1)}}
+
+.hero-inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:clamp(32px,5vw,72px);align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.badge b{color:var(--accent);font-weight:600;letter-spacing:.12em}
+.hero h1{font-size:clamp(40px,6.2vw,76px);line-height:1.06;letter-spacing:-.035em;margin:22px 0 0;font-weight:650}
+.hero h1 em{font-style:normal;display:block;background:linear-gradient(100deg,var(--accent) 0%,#9BE7B4 45%,var(--violet) 110%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{margin-top:22px;color:var(--muted);font-size:clamp(15px,1.3vw,17.5px);max-width:34em;text-wrap:pretty}
+.hero-meta{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;color:var(--muted-2);font-size:12.5px;letter-spacing:.04em}
+.hero-meta .chip{border:1px solid var(--line);padding:4px 10px;border-radius:7px;background:var(--surface)}
+.hero-stats{margin-top:40px;display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,56px);border-top:1px solid var(--line);padding-top:24px}
+.hero-stats div small{display:block;font-size:11.5px;letter-spacing:.1em;color:var(--muted-2);text-transform:uppercase;margin-bottom:6px}
+.hero-stats .num{font-family:var(--mono);font-size:clamp(26px,2.6vw,34px);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hero-stats .num i{font-style:normal;color:var(--accent)}
+
+/* app mock */
+.mock-wrap{position:relative;perspective:1200px}
+.mock{
+  position:relative;border-radius:26px;padding:20px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--surface) 92%,white 8%),var(--surface));
+  border:1px solid var(--line-strong);box-shadow:var(--shadow);
+  transform:rotate(-2.2deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.mock:hover{transform:rotate(0) translateY(-4px)}
+.mock::after{content:"";position:absolute;inset:0;border-radius:26px;background:linear-gradient(160deg,rgba(255,255,255,.08),transparent 40%);pointer-events:none}
+.mock-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11.5px;letter-spacing:.08em}
+.mock-pill{border:1px solid var(--line);border-radius:999px;padding:3px 9px;font-size:10.5px;color:var(--muted)}
+.mock-title{margin-top:16px;font-size:22px;letter-spacing:-.02em}
+.mock-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.mock-tags span{font-size:10.5px;padding:3px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent)}
+.mock-tags span.warn{background:rgba(255,143,107,.1);color:var(--coral);border-color:rgba(255,143,107,.25)}
+.mock-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.mock-row span:last-child{color:var(--muted);font-family:var(--mono);font-size:12px}
+.mock-steps{margin-top:12px;font-size:12px;color:var(--muted);line-height:1.9}
+.mock-steps b{color:var(--text);font-weight:500;margin-right:6px}
+.mock-cta{margin-top:16px;display:flex;align-items:center;justify-content:space-between;background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:11px 14px;font-weight:600;font-size:13px}
+.mock-cta span:last-child{font-family:var(--mono)}
+.glow{position:absolute;inset:auto -40px -60px;height:180px;background:radial-gradient(ellipse at center,rgba(201,248,108,.18),transparent 70%);filter:blur(20px);z-index:-1}
+
+/* ============ layout ============ */
+.shell{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,4vw,40px);display:grid;grid-template-columns:236px minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:start}
+.rail{position:sticky;top:88px;max-height:calc(100vh - 120px);overflow:auto;padding:8px 0 40px;scrollbar-width:thin}
+.rail-title{font-size:11px;letter-spacing:.16em;color:var(--muted-2);text-transform:uppercase;margin:0 0 12px 12px}
+.rail a{display:flex;gap:10px;align-items:baseline;padding:6px 12px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:13px;line-height:1.4;border-left:1px solid transparent;transition:color .2s,background .2s}
+.rail a span{font-family:var(--mono);font-size:10.5px;color:var(--muted-2);min-width:18px}
+.rail a:hover{color:var(--text);background:var(--surface)}
+.rail a.active{color:var(--text);background:var(--surface);border-left-color:var(--accent)}
+.rail a.active span{color:var(--accent)}
+
+main{min-width:0;padding-bottom:24px}
+.section{padding:clamp(56px,7vw,88px) 0;border-top:1px solid var(--line);scroll-margin-top:88px}
+.section:first-of-type{border-top:0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+.section h2{font-size:clamp(28px,3.6vw,42px);letter-spacing:-.03em;max-width:17em;text-wrap:balance}
+.lede{margin-top:14px;color:var(--muted);max-width:34em;font-size:16px;text-wrap:pretty}
+.block{margin-top:34px}
+
+/* ============ components ============ */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{
+  position:relative;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--surface) 92%,white 8%),var(--surface));
+  padding:22px;transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.card:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));transform:translateY(-2px)}
+.card h3{font-size:16.5px;letter-spacing:-.01em}
+.card p{color:var(--muted);font-size:13.5px;margin-top:8px;line-height:1.65}
+.card .idx{font-family:var(--mono);font-size:11px;color:var(--muted-2);letter-spacing:.1em}
+.card .num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:30px;letter-spacing:-.03em}
+.card .num em{font-style:normal;font-size:13px;color:var(--muted);margin-left:4px;letter-spacing:0}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted);background:var(--bg-soft)}
+.tag.on{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,transparent);background:var(--accent-soft)}
+.tag.warn{color:var(--coral);border-color:rgba(255,143,107,.28);background:rgba(255,143,107,.1)}
+.pull{margin:30px 0 0;padding:22px 24px;border-left:2px solid var(--accent);background:linear-gradient(90deg,var(--accent-soft),transparent);border-radius:0 12px 12px 0;font-size:clamp(16px,1.7vw,19px);line-height:1.6}
+.pull b{font-weight:600}
+
+/* moments */
+.moment{display:flex;flex-direction:column;gap:10px}
+.moment .time{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.08em}
+.moment h3{font-size:15px}
+.moment p{font-size:13px;color:var(--muted);margin:0}
+
+/* pain */
+.pain .idx{color:var(--coral)}
+.pain:hover{border-color:rgba(255,143,107,.3)}
+
+/* timeline */
+.timeline{position:relative;margin-top:8px;padding-left:22px}
+.timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--accent),var(--line))}
+.tl-item{position:relative;padding:0 0 22px 14px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-22px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--accent)}
+.tl-item b{font-size:14px;font-weight:600}
+.tl-item span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+/* layers */
+.stack{display:grid;gap:10px}
+.layer{display:grid;grid-template-columns:88px 1fr;gap:16px;align-items:center;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--surface);transition:transform .3s,border-color .3s}
+.layer:hover{transform:translateX(4px);border-color:var(--line-strong)}
+.layer .name{font-size:12px;letter-spacing:.1em;color:var(--muted-2);text-transform:uppercase}
+.layer .body b{display:block;font-size:15px;font-weight:600}
+.layer .body span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.layer[data-l="1"]{background:linear-gradient(90deg,var(--accent-soft),transparent 60%)}
+.layer[data-l="2"]{background:linear-gradient(90deg,rgba(139,124,255,.08),transparent 60%)}
+
+/* moat */
+.moat{display:grid;gap:12px}
+.moat-row{display:grid;grid-template-columns:26px 1fr 90px;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.moat-row:last-child{border-bottom:0}
+.moat-rank{font-family:var(--mono);font-size:12px;color:var(--muted-2)}
+.moat-row b{font-size:14.5px;font-weight:600}
+.moat-row p{font-size:12.5px;color:var(--muted);margin-top:2px}
+.meter{height:6px;border-radius:99px;background:var(--track);overflow:hidden}
+.meter span{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--accent),#78D6A4);border-radius:99px}
+
+/* funnel */
+.funnel{display:grid;gap:12px;margin-top:6px}
+.funnel-row{display:grid;grid-template-columns:190px 1fr 168px;gap:16px;align-items:center}
+.funnel-row .lbl{font-size:12.5px;color:var(--muted)}
+.funnel-row .lbl b{display:block;color:var(--text);font-size:13.5px;font-weight:600}
+.funnel-row .bar{height:34px;border-radius:8px;background:var(--track);overflow:hidden}
+.funnel-row .bar span{display:block;height:100%;width:var(--w);border-radius:8px;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 20%,transparent))}
+.funnel-row .val{font-family:var(--mono);font-size:13.5px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:-.02em}
+.note{font-size:12px;color:var(--muted-2);margin-top:14px;line-height:1.7}
+
+/* table */
+.table{width:100%;border-collapse:collapse;font-size:13.5px}
+.table th{text-align:left;font-weight:500;color:var(--muted-2);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px 10px 0;border-bottom:1px solid var(--line-strong)}
+.table td{padding:14px 14px 14px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted)}
+.table td:first-child{color:var(--text);font-weight:500}
+.table tr:last-child td{border-bottom:0}
+.table .accent{color:var(--accent)}
+
+/* matrix */
+.matrix{position:relative;aspect-ratio:1.15;max-width:520px;margin-top:10px;border:1px solid var(--line);border-radius:16px;background:
+  linear-gradient(90deg,transparent 49.8%,var(--line) 49.8%,var(--line) 50.2%,transparent 50.2%),
+  linear-gradient(0deg,transparent 49.8%,var(--line) 49.8%,var(--line) 50.2%,transparent 50.2%),
+  var(--surface)}
+.matrix .axis{position:absolute;font-size:10.5px;letter-spacing:.12em;color:var(--muted-2);text-transform:uppercase}
+.matrix .axis.x{right:12px;bottom:8px}
+.matrix .axis.y{left:12px;top:10px}
+.matrix .pt{position:absolute;transform:translate(-50%,-50%);font-size:11.5px;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:6px}
+.matrix .pt::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted-2)}
+.matrix::before{content:"";position:absolute;inset:0 0 50% 50%;background:linear-gradient(225deg,var(--accent-soft),transparent 68%);border-radius:0 16px 0 0;pointer-events:none}
+.matrix .q{position:absolute;font-size:9.5px;letter-spacing:.16em;color:var(--muted-2);text-transform:uppercase;opacity:.75}
+.matrix .q.tr{right:14px;top:36px}
+.matrix .q.bl{left:14px;bottom:24px}
+.matrix .pt.me{color:var(--accent);font-weight:600}
+.matrix .pt.me::before{background:var(--accent);box-shadow:0 0 0 6px var(--accent-soft)}
+
+/* pricing */
+.price{display:flex;flex-direction:column;gap:10px;position:relative}
+.price .plan{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2)}
+.price .amount{font-family:var(--mono);font-size:30px;letter-spacing:-.03em}
+.price .amount small{font-size:12px;color:var(--muted);letter-spacing:0;margin-left:4px}
+.price ul{display:grid;gap:7px;margin-top:6px}
+.price li{font-size:12.8px;color:var(--muted);padding-left:16px;position:relative}
+.price li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:2px;background:var(--muted-2)}
+.price.hi{border-color:color-mix(in srgb,var(--accent) 45%,transparent);background:linear-gradient(180deg,var(--accent-soft),var(--surface) 55%)}
+.price.hi .plan{color:var(--accent)}
+.price .rec{position:absolute;top:-10px;right:14px;font-size:10px;letter-spacing:.1em;padding:3px 8px;border-radius:99px;background:var(--accent);color:var(--accent-ink)}
+
+/* roadmap */
+.road{display:grid;gap:0;margin-top:6px}
+.phase{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:22px 0;border-top:1px solid var(--line)}
+.phase:last-child{border-bottom:1px solid var(--line)}
+.phase .when{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+.phase h3{font-size:16px}
+.phase p{font-size:13px;color:var(--muted);margin-top:4px}
+.phase .gate{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+
+/* bars */
+.bars{display:flex;align-items:flex-end;gap:26px;height:190px;padding-top:20px}
+.bars .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;height:100%}
+.bars .bar i{display:block;height:var(--h);border-radius:8px 8px 2px 2px;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 30%,transparent));transition:height 1s cubic-bezier(.2,.7,.2,1)}
+.bars .bar b{font-family:var(--mono);font-size:13px;font-weight:500}
+.bars .bar span{font-size:11px;color:var(--muted-2);letter-spacing:.08em}
+
+/* stat grid */
+.stat-card .num{font-size:clamp(26px,3vw,36px)}
+.stat-card small{display:block;color:var(--muted-2);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:12.5px;padding:7px 12px;border-radius:99px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
+.chips span.no{border-color:rgba(255,143,107,.22);color:var(--coral);background:rgba(255,143,107,.06)}
+
+/* allocation */
+.alloc{display:grid;gap:12px}
+.alloc-row{display:grid;grid-template-columns:132px 1fr 86px;gap:14px;align-items:center;font-size:13px;color:var(--muted)}
+.alloc-row .meter{height:8px}
+.alloc-row b{color:var(--text);font-weight:500}
+.alloc-row em{font-style:normal;font-family:var(--mono);font-size:11px;text-align:right;white-space:nowrap;letter-spacing:-.02em}
+
+footer{border-top:1px solid var(--line);padding:40px clamp(16px,4vw,40px) 60px}
+.foot{max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;color:var(--muted-2);font-size:12px}
+.foot a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.foot a:hover{color:var(--accent);border-color:var(--accent)}
+
+
+/* ticker */
+.ticker{border-block:1px solid var(--line);background:color-mix(in srgb,var(--bg-soft) 60%,transparent);overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.ticker .track{display:flex;width:max-content;animation:tick 52s linear infinite}
+.ticker .grp{display:flex;align-items:center}
+.ticker span{display:inline-flex;align-items:center;gap:26px;padding:10px 0;margin-right:26px;font-size:10.5px;letter-spacing:.16em;color:var(--muted-2);white-space:nowrap}
+.ticker span::after{content:"·";color:var(--accent);opacity:.7}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+/* mobile nav */
+.mnav{display:none}
+
+/* ============ responsive ============ */
+@media (max-width:1080px){
+  .hero-inner{grid-template-columns:1fr;gap:48px}
+  .mock-wrap{max-width:400px}
+  .shell{grid-template-columns:1fr}
+  .rail{display:none}
+  .mnav{display:block;position:sticky;top:64px;z-index:90;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .mnav .scroll{display:flex;gap:8px;overflow-x:auto;padding:10px clamp(16px,4vw,40px);scrollbar-width:none}
+  .mnav .scroll::-webkit-scrollbar{display:none}
+  .mnav a{flex:0 0 auto;font-size:12px;padding:5px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted);text-decoration:none}
+  .mnav a.active{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+  .section{scroll-margin-top:128px;padding-top:24px}
+}
+@media (max-width:860px){
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:1fr}
+  .funnel-row{grid-template-columns:1fr auto;gap:8px}
+  .funnel-row .lbl{grid-column:1/-1}
+  .phase{grid-template-columns:1fr;gap:8px}
+  .layer{grid-template-columns:1fr;gap:6px}
+  .moat-row{grid-template-columns:22px 1fr 70px}
+}
+@media (max-width:560px){
+  .g2,.g4{grid-template-columns:1fr}
+  .top-meta{display:none}
+  .hero{padding-top:calc(64px + 40px)}
+  .hero-stats{gap:24px}
+  .hero-stats .num{font-size:24px}
+  .mock{transform:none}
+  .matrix{aspect-ratio:1/1}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#fff;--text:#111;--muted:#555;--line:#ddd;--line-strong:#bbb;--accent:#3d5f00;--track:#e6e6e6}
+  body{background:#fff;color:#111}
+  .hero h1 em{background:none!important;color:#111!important;-webkit-text-fill-color:#111!important}
+  .hero{padding:20px 0 10px}
+  .hero-stats{margin-top:20px;padding-top:14px}
+  .card,.layer,.price,.matrix,.phase,.funnel-row{break-inside:avoid}
+  .topbar,.rail,.mnav,.progress,.aurora,.grain,.mock-wrap,.icon-btn,.skip,.ticker{display:none!important}
+  .hero h1{font-size:34px!important}
+  .hero-sub{font-size:11.5px!important}
+  .shell{display:block;padding:0}
+  .section{page-break-inside:avoid;padding:28px 0}
+  .card,.layer,.price{box-shadow:none;background:#fff}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div class="progress" aria-hidden="true"><span id="bar"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand"><span class="mark">P</span>Pulse</div>
+  <div class="top-meta">
+    <span>商业计划书</span><span class="dot"></span><span>2026-10-26</span><span class="dot"></span><span>Pre-seed</span>
+  </div>
+  <div class="tools">
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="切换浅色/深色主题" title="切换主题">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v2m0 14v2M4.2 4.2l1.4 1.4m12.8 12.8 1.4 1.4M3 12h2m14 0h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg>
+    </button>
+    <button class="icon-btn print-btn" type="button" onclick="window.print()" aria-label="打印或导出为 PDF">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 8V4h10v4M7 17h10v4H7z"/><path d="M5 8h14a2 2 0 0 1 2 2v5h-4v-3H7v3H3v-5a2 2 0 0 1 2-2Z"/></svg>
+      打印
+    </button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+  <div class="hero-inner">
+    <div>
+      <span class="badge"><b>●</b> Pre-seed · 商业计划 · 2026</span>
+      <h1>把「今天吃什么」<em>变成 30 秒的决定</em></h1>
+      <p class="hero-sub">Pulse 不是卡路里 App，也不是聊天机器人。它把你的硬约束、确认过的事实和当下的意图，编译成一个可执行、可核对、可信任的决定。</p>
+      <div class="hero-meta">
+        <span class="chip">AI 健康决策系统</span>
+        <span class="chip">中餐 · 外卖 · 家庭</span>
+        <span>版本 2026-10-26</span>
+      </div>
+      <div class="hero-stats">
+        <div><small>城镇 25–45 岁超重/肥胖</small><div class="num"><span data-to="1.5" data-dec="1">0</span><i> 亿人</i></div></div>
+        <div><small>可服务市场 / 年</small><div class="num">¥<span data-to="24">0</span>–36<i> 亿</i></div></div>
+        <div><small>目标决策时间</small><div class="num"><span data-to="30">0</span><i> 秒</i></div></div>
+      </div>
+    </div>
+
+    <div class="mock-wrap reveal in">
+      <div class="glow" aria-hidden="true"></div>
+      <article class="mock" aria-label="Pulse 推荐卡片示意">
+        <div class="mock-top"><span>今晚 · 20 分钟</span><span class="mock-pill">Pulse</span></div>
+        <h3 class="mock-title">黑椒牛柳配西兰花</h3>
+        <div class="mock-tags">
+          <span>已核对 · 花生</span><span>无米饭</span><span class="warn">中等置信度</span>
+        </div>
+        <div style="margin-top:12px">
+          <div class="mock-row"><span>牛柳</span><span>200 g</span></div>
+          <div class="mock-row"><span>西兰花</span><span>150 g</span></div>
+          <div class="mock-row" style="border-bottom:0"><span>黑胡椒 · 蒜 · 生抽</span><span>适量</span></div>
+        </div>
+        <div class="mock-steps">
+          <b>01</b>牛柳切条，腌制 10 分钟<br>
+          <b>02</b>大火快炒至七成熟<br>
+          <b>03</b>西兰花焯水，回锅翻匀
+        </div>
+        <div class="mock-cta"><span>就吃这个</span><span>→</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <div class="grp">
+      <span>过敏永远优先</span><span>AI 只出草稿</span><span>确认才成事实</span><span>只给三个选项</span><span>不确定就明说</span><span>中餐可执行</span><span>家庭约束求解</span><span>不做诊断</span>
+    </div>
+    <div class="grp">
+      <span>过敏永远优先</span><span>AI 只出草稿</span><span>确认才成事实</span><span>只给三个选项</span><span>不确定就明说</span><span>中餐可执行</span><span>家庭约束求解</span><span>不做诊断</span>
+    </div>
+  </div>
+</div>
+
+<div class="mnav" aria-label="章节导航">
+  <div class="scroll">
+    <a href="#summary">摘要</a><a href="#future">终局</a><a href="#why">时机</a><a href="#users">用户</a><a href="#product">产品</a><a href="#moat">护城河</a><a href="#market">市场</a><a href="#compete">竞争</a><a href="#model">商业</a><a href="#gtm">增长</a><a href="#roadmap">路线</a><a href="#unit">经济</a><a href="#risks">风险</a><a href="#metrics">指标</a>
+  </div>
+</div>
+
+<div class="shell">
+  <!-- ============ RAIL ============ -->
+  <aside class="rail" aria-label="章节索引">
+    <p class="rail-title">Contents</p>
+    <nav>
+      <a href="#summary"><span>01</span>一页摘要</a>
+      <a href="#future"><span>02</span>终局图景</a>
+      <a href="#why"><span>03</span>问题与时机</a>
+      <a href="#users"><span>04</span>用户与场景</a>
+      <a href="#product"><span>05</span>产品形态</a>
+      <a href="#moat"><span>06</span>护城河</a>
+      <a href="#market"><span>07</span>市场与规模</a>
+      <a href="#compete"><span>08</span>竞争格局</a>
+      <a href="#model"><span>09</span>商业模式</a>
+      <a href="#gtm"><span>10</span>增长路径</a>
+      <a href="#roadmap"><span>11</span>路线图</a>
+      <a href="#unit"><span>12</span>单位经济</a>
+      <a href="#team"><span>13</span>团队</a>
+      <a href="#risks"><span>14</span>风险与合规</a>
+      <a href="#metrics"><span>15</span>关键指标</a>
+      <a href="#funding"><span>16</span>融资与边界</a>
+    </nav>
+  </aside>
+
+  <main id="main">
+    <!-- 01 -->
+    <section class="section" id="summary">
+      <p class="kicker">01 — 一页摘要</p>
+      <h2>不是记录工具，<br>而是<em style="font-style:normal;color:var(--accent)">决策层</em></h2>
+      <p class="lede">Pulse 把你不能违反的约束、你确认过的事实和当下的意图，编译成 30 秒内可执行的一个决定，并在你真正执行后闭环。</p>
+
+      <div class="grid g3 block">
+        <div class="card reveal"><p class="idx">WEDGE</p><h3>一顿饭</h3><p>中餐场景下「今晚吃什么、外卖点什么、这锅菜全家能不能吃」——高频、纠结、现有工具做不好。</p></div>
+        <div class="card reveal" style="--d:.08s"><p class="idx">MOAT</p><h3>敢信，而非模型</h3><p>约束图谱 + 确认过的事实库 + 安全记录。模型人人可得，「敢信」不能。</p></div>
+        <div class="card reveal" style="--d:.16s"><p class="idx">MODEL</p><h3>订阅 + B 端</h3><p>C 端 Free / Pro / 家庭版，B 端企业健康、保险、营养师工作台。不卖药、不做竞价推荐。</p></div>
+      </div>
+
+      <blockquote class="pull">三年目标（基准情形）：<b>10 万付费 · ¥2,000 万 ARR · W4 留存 ≥30% · 安全事件 0</b>。当前 v0.4 已跑通「一句话需求 → 结构化推荐 → 硬约束复核」，缺的是<b>记录闭环</b>与<b>决策闭环</b>。</blockquote>
+    </section>
+
+    <!-- 02 -->
+    <section class="section" id="future">
+      <p class="kicker">02 — 终局图景</p>
+      <h2>它出现在你做决定的四个时刻</h2>
+      <p class="lede">不做每天记账的 App，而是只在「即将做决定」的那一刻出现，给 3 个选项，记下你选了什么，然后忘掉其余。</p>
+
+      <div class="grid g4 block">
+        <article class="card moment reveal"><span class="time">07:30 · 餐前</span><h3>今晚吃什么</h3><p>结合今日缺口、冰箱余量、20 分钟时间，给 3 个方案。</p></article>
+        <article class="card moment reveal" style="--d:.06s"><span class="time">12:00 · 外卖</span><h3>这家店你能吃的</h3><p>在菜单里挑出 3 道菜，并生成「少油、不要花生」的备注。</p></article>
+        <article class="card moment reveal" style="--d:.12s"><span class="time">18:00 · 超市</span><h3>站在货架前</h3><p>配料表里的过敏原、同价位更优替代，扫一眼就知道。</p></article>
+        <article class="card moment reveal" style="--d:.18s"><span class="time">21:00 · 体检后</span><h3>指标怎么落地</h3><p>把数字翻译成本周 5 个可执行调整，并明确「这不是诊断」。</p></article>
+      </div>
+
+      <div class="grid g3 block">
+        <article class="card reveal"><p class="idx">CAPABILITY 01</p><h3>个人食物反应模型</h3><p>确认餐食 × 可选 CGM/体重/训练数据 →「你吃这份米饭血糖峰值偏高，换成杂粮饭 + 先吃菜」。这是最深的数据护城河。</p></article>
+        <article class="card reveal" style="--d:.08s"><p class="idx">CAPABILITY 02</p><h3>家庭约束求解</h3><p>一锅菜同时满足孩子花生过敏、老人低盐、自己在减脂。餐饮决策从来不是一个人的事。</p></article>
+        <article class="card reveal" style="--d:.16s"><p class="idx">CAPABILITY 03</p><h3>与专业角色协作</h3><p>营养师、教练、医生看到结构化、可追溯的记录，而不是截图与口述。Pulse 做人在环的工具层。</p></article>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="section" id="why">
+      <p class="kicker">03 — 问题与时机</p>
+      <h2>三种工具，三种失败</h2>
+      <p class="lede">中国有全世界最大的减脂人群，却几乎没有一个人人信得过的「今天吃什么」决策工具。</p>
+
+      <div class="grid g3 block">
+        <article class="card pain reveal"><p class="idx">记录型</p><h3>负担太重</h3><p>薄荷、MyFitnessPal 要求逐项录入、称重、查库；中餐一盘「宫保鸡丁」根本拆不准，用户记两周就放弃。</p></article>
+        <article class="card pain reveal" style="--d:.08s"><p class="idx">通用 AI</p><h3>不可信</h3><p>能聊，但不记得你的过敏、不知道你今天吃了什么、建议不可追溯，也不敢为安全负责。</p></article>
+        <article class="card pain reveal" style="--d:.16s"><p class="idx">内容平台</p><h3>不可执行</h3><p>10 万篇「减脂餐」，没有一篇知道你冰箱里有什么、你对花生过敏、你只有 20 分钟。</p></article>
+      </div>
+
+      <h3 style="margin-top:44px;font-size:20px">为什么是现在</h3>
+      <div class="timeline block">
+        <div class="tl-item reveal"><b>人群与焦虑</b><span>成人超重/肥胖率超过 50%（官方口径：超重 34.3% + 肥胖 16.4%），慢病年轻化。</span></div>
+        <div class="tl-item reveal" style="--d:.06s"><b>GLP-1 爆发</b><span>减重版司美格鲁肽 2024 年底在华上市，4 个月销售额约 10 亿元；用药人群急需「怎么吃」。</span></div>
+        <div class="tl-item reveal" style="--d:.12s"><b>成本拐点</b><span>国产模型单次生成成本不到一分钱，多模态可用，数据可境内闭环。</span></div>
+        <div class="tl-item reveal" style="--d:.18s"><b>场景迁移</b><span>决策发生在「点单页」和「货架前」，而不是厨房；谁能嵌进这个瞬间，谁拿到入口。</span></div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="section" id="users">
+      <p class="kicker">04 — 用户与场景</p>
+      <h2>三类人，同一个动作：<br>在 30 秒内做个决定</h2>
+
+      <div class="grid g3 block">
+        <article class="card reveal">
+          <p class="idx">P1</p><h3>目标型记录者</h3>
+          <p>25–40 岁城市白领，减脂/增肌，愿意记录但不想填表。</p>
+          <div class="chips" style="margin-top:12px"><span>中餐拆不准</span><span>坚持不下来</span></div>
+        </article>
+        <article class="card reveal" style="--d:.08s">
+          <p class="idx">P2</p><h3>GLP-1 用药者</h3>
+          <p>30–45 岁，正在用司美格鲁肽/替尔泊肽：吃不下、怕掉肌肉、怕反弹。</p>
+          <div class="chips" style="margin-top:12px"><span class="on">付费意愿高</span><span>现有工具空白</span></div>
+        </article>
+        <article class="card reveal" style="--d:.16s">
+          <p class="idx">P3</p><h3>家庭主厨</h3>
+          <p>30–45 岁，负责全家饮食：孩子过敏、老人低盐、自己减脂。</p>
+          <div class="chips" style="margin-top:12px"><span>多人约束</span><span>天然多账号</span></div>
+        </article>
+      </div>
+
+      <div class="grid g3 block">
+        <div class="card"><p class="idx">功能任务</p><p style="margin-top:6px;color:var(--text);font-size:14px">30 秒内决定这一顿，且不违反任何硬约束。</p></div>
+        <div class="card"><p class="idx">情绪任务</p><p style="margin-top:6px;color:var(--text);font-size:14px">不因一顿饭、一次体重波动被羞辱；对数字有掌控感。</p></div>
+        <div class="card"><p class="idx">社会任务</p><p style="margin-top:6px;color:var(--text);font-size:14px">让家人吃得安心；聚餐时不必「什么都不能吃」。</p></div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="section" id="product">
+      <p class="kicker">05 — 产品形态</p>
+      <h2>四层架构，一个原则：<br>AI 只出草稿</h2>
+
+      <div class="stack block">
+        <div class="layer reveal" data-l="1"><div class="name">Action</div><div class="body"><b>行动层</b><span>菜单 · 购物清单 · 烹饪模式 · 外卖模式 · 分享卡片</span></div></div>
+        <div class="layer reveal" data-l="2" style="--d:.06s"><div class="name">Decision</div><div class="body"><b>决策层</b><span>Agent Harness：上下文构建 → 确定性策略 → 模型 → 校验 → 确认</span></div></div>
+        <div class="layer reveal" style="--d:.12s"><div class="name">Constraints</div><div class="body"><b>约束层</b><span>过敏 · 疾病 · 宗教 · 家庭 · 预算 · 时间 · 厨具</span></div></div>
+        <div class="layer reveal" style="--d:.18s"><div class="name">Facts</div><div class="body"><b>事实层</b><span>确认过的餐食 · 体重 · 训练 · 围度 · 指标（可删、可导出）</span></div></div>
+      </div>
+
+      <div class="grid g4 block" style="margin-top:26px">
+        <div class="card"><h3>Today</h3><p>还剩多少、现在该做什么、一键「就吃这个」。</p></div>
+        <div class="card"><h3>Records</h3><p>确认过的事实与修订链，可编辑、可删除、可导出。</p></div>
+        <div class="card"><h3>Plan</h3><p>目标与版本，调整必须显式确认。</p></div>
+        <div class="card"><h3>Me</h3><p>档案、约束、隐私、家庭、订阅。</p></div>
+      </div>
+
+      <blockquote class="pull">五条产品纪律：模型输出永远是<b>草稿</b>；硬约束永远<b>高于</b>偏好；只给 <b>3 个</b>选项；不确定就<b>明说</b>；只保存完成任务所需的<b>最小上下文</b>。</blockquote>
+    </section>
+
+    <!-- 06 -->
+    <section class="section" id="moat">
+      <p class="kicker">06 — 护城河</p>
+      <h2>越往后越难抄的东西</h2>
+      <p class="lede">模型不是护城河，UI 不是，prompt 更不是。真正的壁垒按可防御性排序：</p>
+
+      <div class="moat block">
+        <div class="moat-row reveal"><span class="moat-rank">01</span><div><b>中餐菜品本体 + 份量估算</b><p>10 万道家常菜/外卖菜的配料、份量、过敏原、替代项。脏活累活，但是数据资产。</p></div><div class="meter" aria-label="可防御性 90%"><span style="--w:90%"></span></div></div>
+        <div class="moat-row reveal" style="--d:.06s"><span class="moat-rank">02</span><div><b>确认过的个人事实库</b><p>吃了什么、反应如何、哪些建议被采纳。用得越久越准，迁移成本越高。</p></div><div class="meter" aria-label="可防御性 82%"><span style="--w:82%"></span></div></div>
+        <div class="moat-row reveal" style="--d:.12s"><span class="moat-rank">03</span><div><b>安全记录与品牌</b><p>健康领域，「三年零事故」本身就是最强获客资产；一次事故可以摧毁全部信任。</p></div><div class="meter" aria-label="可防御性 74%"><span style="--w:74%"></span></div></div>
+        <div class="moat-row reveal" style="--d:.18s"><span class="moat-rank">04</span><div><b>可解释的规则引擎</b><p>可审计、可保险、监管友好——通用大模型做不到。</p></div><div class="meter" aria-label="可防御性 62%"><span style="--w:62%"></span></div></div>
+        <div class="moat-row reveal" style="--d:.24s"><span class="moat-rank">05</span><div><b>生态接口</b><p>营养师工作台、保险慢病管理、食品企业，越往后越值钱。</p></div><div class="meter" aria-label="可防御性 50%"><span style="--w:50%"></span></div></div>
+      </div>
+
+      <blockquote class="pull">任何人一周就能抄一个「AI 推荐菜」。他们抄不走的是：<b>十万道中餐菜品的约束数据</b>，和<b>用户愿意把过敏告诉你的那份信任</b>。</blockquote>
+    </section>
+
+    <!-- 07 -->
+    <section class="section" id="market">
+      <p class="kicker">07 — 市场与规模</p>
+      <h2>自下而上，<br>把假设写清楚</h2>
+      <p class="lede">这不是「万亿健康市场」式的口号，而是一条可以被验证或被推翻的算术。</p>
+
+      <div class="funnel block">
+        <div class="funnel-row reveal">
+          <div class="lbl"><b>TAM</b>25–45 岁城镇人口</div>
+          <div class="bar"><span style="--w:100%"></span></div>
+          <div class="val">3 亿</div>
+        </div>
+        <div class="funnel-row reveal" style="--d:.06s">
+          <div class="lbl"><b>其中超重 / 肥胖</b>约 50%</div>
+          <div class="bar"><span style="--w:50%"></span></div>
+          <div class="val">1.5 亿</div>
+        </div>
+        <div class="funnel-row reveal" style="--d:.12s">
+          <div class="lbl"><b>愿为决策付费</b>8–12%（假设）</div>
+          <div class="bar"><span style="--w:12%"></span></div>
+          <div class="val">1,200–1,800 万</div>
+        </div>
+        <div class="funnel-row reveal" style="--d:.18s">
+          <div class="lbl"><b>SAM</b>× ARPU ¥200 / 年</div>
+          <div class="bar"><span style="--w:24%"></span></div>
+          <div class="val">¥24–36 亿</div>
+        </div>
+        <div class="funnel-row reveal" style="--d:.24s">
+          <div class="lbl"><b>3 年 SOM</b>渗透 0.5–1%</div>
+          <div class="bar"><span style="--w:8%"></span></div>
+          <div class="val">¥1,200–3,600 万</div>
+        </div>
+      </div>
+      <p class="note">口径：14.1 亿人口 × 25–45 岁约 30% × 城镇化 67%，再乘超重肥胖率 50%。付费意愿 8–12% 为假设，需用真实转化校准。本页是「如果成立」的上限，不是预测。</p>
+    </section>
+
+    <!-- 08 -->
+    <section class="section" id="compete">
+      <p class="kicker">08 — 竞争格局</p>
+      <h2>站在所有交易平台之上，<br>做中立的那一层</h2>
+
+      <table class="table block">
+        <thead><tr><th>玩家</th><th>强项</th><th>短板</th><th>关系</th></tr></thead>
+        <tbody>
+          <tr><td>薄荷健康</td><td>食物库、社区、电商</td><td>记录负担重，变现靠卖货</td><td>被替代</td></tr>
+          <tr><td>Keep</td><td>运动内容与品牌</td><td>饮食是附属功能</td><td>可合作</td></tr>
+          <tr><td>MyFitnessPal</td><td>数据库、国际化</td><td>中餐弱、无约束引擎</td><td>不同市场</td></tr>
+          <tr><td>Noom</td><td>行为心理学、教练</td><td>中国本地化弱、贵</td><td>模式参考</td></tr>
+          <tr><td>美团 / 饿了么</td><td>交易入口、商家数据</td><td>无健康约束层，动机冲突</td><td>潜在渠道</td></tr>
+          <tr><td class="accent">通用 AI</td><td>交互自然、便宜</td><td>无记忆、无约束、不敢负责</td><td class="accent">最大威胁 = 最大差异点</td></tr>
+        </tbody>
+      </table>
+
+      <div class="matrix block" role="img" aria-label="竞争定位：信任度与决策闭环，Pulse 位于右上角">
+        <span class="axis y">信任度 ↑</span>
+        <span class="q tr">可信 · 闭环</span>
+        <span class="q bl">低信任 · 低闭环</span>
+        <span class="axis x">决策闭环 →</span>
+        <span class="pt me" style="left:78%;top:20%">Pulse</span>
+        <span class="pt" style="left:40%;top:46%">薄荷</span>
+        <span class="pt" style="left:30%;top:58%">Keep</span>
+        <span class="pt" style="left:22%;top:76%">通用 AI</span>
+        <span class="pt" style="left:42%;top:70%">美团 / 饿了么</span>
+      </div>
+    </section>
+
+    <!-- 09 -->
+    <section class="section" id="model">
+      <p class="kicker">09 — 商业模式</p>
+      <h2>订阅为主，<br>不和信任做交易</h2>
+
+      <div class="grid g3 block">
+        <article class="card price reveal">
+          <p class="plan">Free</p>
+          <p class="amount">¥0</p>
+          <ul><li>3 次/日推荐</li><li>基础约束</li><li>7 天历史</li></ul>
+        </article>
+        <article class="card price hi reveal" style="--d:.08s">
+          <span class="rec">推荐</span>
+          <p class="plan">Pro</p>
+          <p class="amount">¥29<small>/月</small></p>
+          <ul><li>无限推荐</li><li>我的菜单 · 周计划 · 购物清单</li><li>外卖模式 · 数据导出</li><li>年付 ¥199</li></ul>
+        </article>
+        <article class="card price reveal" style="--d:.16s">
+          <p class="plan">Family</p>
+          <p class="amount">¥399<small>/年</small></p>
+          <ul><li>4 人共享</li><li>多人约束求解</li><li>共享菜单与清单</li></ul>
+        </article>
+      </div>
+
+      <div class="grid g2 block">
+        <div class="card"><p class="idx">B 端</p><h3 style="margin-top:6px">企业 · 保险 · 营养师</h3><p>企业健康 ¥30–50/人/年；保险慢病管理按效果付费；营养师/健身房工作台 ¥299/月。</p></div>
+        <div class="card"><p class="idx">明确不做</p><h3 style="margin-top:6px">与中立冲突的钱</h3><p>卖药、卖保健品、竞价推荐餐厅、信息流广告、社区排行榜。信任是唯一资产。</p></div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="section" id="gtm">
+      <p class="kicker">10 — 增长路径</p>
+      <h2>先用内容换信任，<br>再用工具换留存</h2>
+
+      <div class="timeline block">
+        <div class="tl-item reveal"><b>内容冷启动</b><span>小红书/抖音做「中餐减脂」「外卖怎么点」「这顿能不能吃」的工具型内容，用工具引流而非广告。</span></div>
+        <div class="tl-item reveal" style="--d:.06s"><b>社群</b><span>减脂打卡群、GLP-1 交流群（严格不做医疗建议，只做饮食决策）。</span></div>
+        <div class="tl-item reveal" style="--d:.12s"><b>专业渠道</b><span>营养师与健身教练先成为工具用户，再成为获客渠道。</span></div>
+        <div class="tl-item reveal" style="--d:.18s"><b>产品内裂变</b><span>菜单卡片分享给家人/群、家庭版邀请、每周小结。</span></div>
+        <div class="tl-item reveal" style="--d:.24s"><b>规模</b><span>种子 100 人（手工服务）→ 1 万（内容+社群）→ 10 万（渠道+品牌）。</span></div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="section" id="roadmap">
+      <p class="kicker">11 — 路线图</p>
+      <h2>每个阶段都有一道<br>过不去的门</h2>
+
+      <div class="road block">
+        <div class="phase reveal">
+          <div class="when">0–3 月</div>
+          <div><h3>P0 打磨</h3><p>v0.4.1 UI、一句话记一餐、我的菜单、返回记录 id / 幂等修复。</p>
+            <div class="gate"><span class="tag on">30 名真实用户</span><span class="tag">首推 ≤60 秒</span></div></div>
+        </div>
+        <div class="phase reveal" style="--d:.06s">
+          <div class="when">3–6 月</div>
+          <div><h3>P1 留存</h3><p>周计划、购物清单、PWA 提醒、小程序 MVP。</p>
+            <div class="gate"><span class="tag on">W4 留存 ≥25%</span><span class="tag">周均使用 ≥3 天</span></div></div>
+        </div>
+        <div class="phase reveal" style="--d:.12s">
+          <div class="when">6–12 月</div>
+          <div><h3>P2 变现</h3><p>外卖模式、家庭版、GLP-1 专区、Pro 订阅上线。</p>
+            <div class="gate"><span class="tag on">付费转化 ≥5%</span><span class="tag">月流失 &lt;5%</span></div></div>
+        </div>
+        <div class="phase reveal" style="--d:.18s">
+          <div class="when">12–24 月</div>
+          <div><h3>P3 深化</h3><p>CGM 接入、个人反应模型、营养师工作台、B 端试点。</p>
+            <div class="gate"><span class="tag on">1 万付费</span><span class="tag">ARR ¥600 万</span></div></div>
+        </div>
+        <div class="phase reveal" style="--d:.24s">
+          <div class="when">24–36 月</div>
+          <div><h3>P4 平台</h3><p>开放 API、保险合作、东南亚华人市场。</p>
+            <div class="gate"><span class="tag on">10 万付费</span><span class="tag">安全事件 0</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="section" id="unit">
+      <p class="kicker">12 — 单位经济</p>
+      <h2>毛利很高，<br>难的是留存</h2>
+
+      <div class="grid g3 block">
+        <div class="card stat-card"><div class="num">4×</div><small>LTV / CAC</small><p style="margin-top:8px">ARPU ¥200，CAC ¥60–100，LTV ≈¥370。</p></div>
+        <div class="card stat-card"><div class="num">85%+</div><small>毛利率</small><p style="margin-top:8px">推理成本 &lt;¥1/月/用户，主要成本是支付与客服。</p></div>
+        <div class="card stat-card"><div class="num">≈5 个月</div><small>回本周期</small><p style="margin-top:8px">内容与社群获客，不依赖买量。</p></div>
+      </div>
+
+      <div class="bars block" aria-label="三年 ARR 示意：100 万、600 万、2000 万">
+        <div class="bar"><b>¥100 万</b><i style="--h:18%"></i><span>Y1 · 5,000 付费</span></div>
+        <div class="bar"><b>¥600 万</b><i style="--h:45%"></i><span>Y2 · 30,000 付费</span></div>
+        <div class="bar"><b>¥2,000 万</b><i style="--h:100%"></i><span>Y3 · 100,000 付费</span></div>
+      </div>
+      <p class="note">财务为示意，不构成预测。真正决定曲线的是 W4 留存与付费转化两个变量。</p>
+    </section>
+
+    <!-- 13 -->
+    <section class="section" id="team">
+      <p class="kicker">13 — 团队</p>
+      <h2>3–5 人，<br>先补齐数据与合规</h2>
+
+      <div class="grid g4 block">
+        <div class="card"><p class="idx">01</p><h3>产品 / 设计</h3><p>体验、内容策略、约束语义。</p></div>
+        <div class="card"><p class="idx">02</p><h3>全栈工程 ×2</h3><p>Next.js、规则引擎、数据管道。</p></div>
+        <div class="card"><p class="idx">03</p><h3>增长 / 内容</h3><p>小红书、社群、渠道。</p></div>
+        <div class="card"><p class="idx">04</p><h3>营养师顾问</h3><p>规则审核、免责边界（兼职）。</p></div>
+      </div>
+      <p class="note">关键缺口：中餐食物数据、PIPL/生成式 AI 备案、保险与企业销售。</p>
+    </section>
+
+    <!-- 14 -->
+    <section class="section" id="risks">
+      <p class="kicker">14 — 风险与合规</p>
+      <h2>健康产品的死法，<br>基本只有几种</h2>
+
+      <table class="table block">
+        <thead><tr><th>风险</th><th>影响</th><th>缓解</th></tr></thead>
+        <tbody>
+          <tr><td>过敏 / 安全事件</td><td><span class="tag warn">致命</span></td><td>保守阻断、「无法确认」显式化、产品责任险、红队评测集</td></tr>
+          <tr><td>医疗边界</td><td><span class="tag warn">法律</span></td><td>不做诊断治疗；症状类请求转「建议就医」；文案审查</td></tr>
+          <tr><td>敏感个人信息（PIPL）</td><td><span class="tag warn">高</span></td><td>单独同意、境内存储、最小化、可删除、可导出；不接境外模型</td></tr>
+          <tr><td>生成式 AI 备案</td><td><span class="tag warn">上线阻断</span></td><td>使用已备案基座模型，完成算法/服务备案与安全评估</td></tr>
+          <tr><td>广告法</td><td><span class="tag">中</span></td><td>不宣称疗效；营养数字标注来源与不确定性</td></tr>
+          <tr><td>成本与延迟</td><td><span class="tag">中</span></td><td>分级模型、缓存、流式输出、预算熔断</td></tr>
+          <tr><td>大厂竞争</td><td><span class="tag">高</span></td><td>扎根约束与信任，先做家庭与 GLP-1 细分</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 15 -->
+    <section class="section" id="metrics">
+      <p class="kicker">15 — 关键指标</p>
+      <h2>北极星：<em style="font-style:normal;color:var(--accent)">每周「决策解决」次数</em></h2>
+      <p class="lede">不是「看了建议」，也不是「点开页面」，而是用户明确选定了这一餐。</p>
+
+      <div class="grid g3 block">
+        <div class="card stat-card"><div class="num">p50 ≤30s</div><small>首次推荐完成（TTFV）</small></div>
+        <div class="card stat-card"><div class="num">≥30%</div><small>W4 留存</small></div>
+        <div class="card stat-card"><div class="num">≥40%</div><small>推荐 → 决策确认率</small></div>
+        <div class="card stat-card"><div class="num">≥50%</div><small>决策 → 实际记录率</small></div>
+        <div class="card stat-card"><div class="num">≥5%</div><small>90 天付费转化</small></div>
+        <div class="card stat-card"><div class="num">0</div><small>安全事件</small></div>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="section" id="funding">
+      <p class="kicker">16 — 融资与边界</p>
+      <h2>¥300–500 万，<br>买 18 个月</h2>
+
+      <div class="alloc block">
+        <div class="alloc-row reveal"><b>团队 60%</b><div class="meter"><span style="--w:60%"></span></div><em>3–4 人</em></div>
+        <div class="alloc-row reveal" style="--d:.06s"><b>数据与合规 20%</b><div class="meter"><span style="--w:20%"></span></div><em>本体 · 备案</em></div>
+        <div class="alloc-row reveal" style="--d:.12s"><b>增长 15%</b><div class="meter"><span style="--w:15%"></span></div><em>内容 · 社群</em></div>
+        <div class="alloc-row reveal" style="--d:.18s"><b>云与模型 5%</b><div class="meter"><span style="--w:5%"></span></div><em>算力</em></div>
+      </div>
+
+      <div class="grid g2 block">
+        <div class="card"><p class="idx">里程碑</p><h3 style="margin-top:6px">1 万付费 · ARR ¥600 万</h3><p>W4 留存 ≥25%，安全事件 0。</p></div>
+        <div class="card"><p class="idx">明确不做</p><h3 style="margin-top:6px">守住边界</h3><p>诊断治疗、卖药卖保健品、竞价推荐、社区排行、通用聊天、自研硬件。</p></div>
+      </div>
+
+      <blockquote class="pull">未来 12 个月，真正要回答的只有三个问题：<b>赌不赌 GLP-1 人群？家庭版做不做？愿不愿意为了中立放弃卖货收入？</b></blockquote>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="foot">
+    <div>Pulse · 商业计划书（畅想版）· 2026-10-26</div>
+    <div>本文为愿景与假设，不构成承诺，不改变产品合同 · <a href="#top">回到顶部 ↑</a></div>
+  </div>
+  <div class="foot" style="margin-top:18px;border-top:1px solid var(--line);padding-top:18px">
+    <div>数据口径：成人超重/肥胖 &gt;50%（<a href="https://jiankang.cctv.com/2021/06/01/ARTIbcsz4zg7swOFfnCnQlDb210601.shtml" target="_blank" rel="noopener">央视新闻</a>）· 减重版司美格鲁肽上市 4 个月约 10 亿元（<a href="https://www.pharnexcloud.com/zixun/shiye/spdt_45825" target="_blank" rel="noopener">摩熵医药</a>）· 其余为假设，需复核 · <a href="pulse-business-plan.pdf" download>下载 PDF（18 页）</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* reveal */
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || reduce) {
+    els.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    els.forEach(function(el){ io.observe(el); });
+  }
+
+  /* count up */
+  function animate(el){
+    var to = parseFloat(el.dataset.to || '0');
+    var dec = parseInt(el.dataset.dec || '0', 10);
+    var start = performance.now(), dur = 1100;
+    function fmt(v){ return v.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+    if (reduce){ el.textContent = fmt(to); return; }
+    function step(t){
+      var p = Math.min(1, (t - start) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(to * e);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var nums = document.querySelectorAll('[data-to]');
+  if ('IntersectionObserver' in window && !reduce){
+    var no = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ animate(e.target); no.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    nums.forEach(function(el){ no.observe(el); });
+  } else {
+    nums.forEach(function(el){ el.textContent = parseFloat(el.dataset.to).toFixed(parseInt(el.dataset.dec||'0',10)); });
+  }
+
+  /* scroll progress */
+  var bar = document.getElementById('bar');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    bar.style.width = p.toFixed(2) + '%';
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* scroll spy */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+  var mlinks = Array.prototype.slice.call(document.querySelectorAll('.mnav a'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main .section'));
+  var lastActive = null;
+  function spy(){
+    var off = window.innerWidth <= 1080 ? 178 : 120;
+    var current = sections[0];
+    sections.forEach(function(s){
+      if (s.getBoundingClientRect().top - off <= 0) current = s;
+    });
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 8) {
+      current = sections[sections.length - 1];
+    }
+    if (!current) return;
+    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + current.id); });
+    mlinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + current.id); });
+    if (current.id !== lastActive) {
+      lastActive = current.id;
+      if (window.innerWidth <= 1080) {
+        var act = mlinks.filter(function(a){ return a.getAttribute('href') === '#' + current.id; })[0];
+        if (act) act.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }
+  document.addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  /* theme */
+  var root = document.documentElement;
+  var saved = null;
+  try { saved = localStorage.getItem('pulse-theme'); } catch(e){}
+  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  var btn = document.getElementById('themeBtn');
+  btn.addEventListener('click', function(){
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('pulse-theme', next); } catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
